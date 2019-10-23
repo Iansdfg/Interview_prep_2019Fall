@@ -9,10 +9,10 @@ class Solution:
         if not dummy.next:
             dummy.next = node
         else:
-            head = dummy.next
+            nextt = dummy.next
             dummy.next = node
-            node.next = head
-            head = node
+            node.next = nextt
+
         
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
         dummy = ListNode(-1)
@@ -37,11 +37,3 @@ class Solution:
             increment = summ//10
             
         return dummy.next
-
-            
-            
-        
-        
-            
- 
-        
