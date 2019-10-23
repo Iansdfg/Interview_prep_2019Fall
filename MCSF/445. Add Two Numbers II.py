@@ -36,15 +36,7 @@ class Solution:
             new_node = ListNode(val) 
             self.insert(dummy, new_node)
             increment = summ//10
-        rest = stack1 or stack2
-        if not rest:
-            return dummy.next 
-        val = rest.pop()+increment
-        if val<9:
-            self.insert(dummy, ListNode(val))
-        else:
-            self.insert(dummy, ListNode(val%10))
-            self.insert(dummy, ListNode(val//10))
+            
         return dummy.next
 
             
