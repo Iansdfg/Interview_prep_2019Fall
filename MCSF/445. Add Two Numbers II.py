@@ -32,7 +32,6 @@ class Solution:
             if stack2:
                 summ += stack2.pop()
             val = summ % 10
-            print(val)
             new_node = ListNode(val) 
             self.insert(dummy, new_node)
             increment = summ//10
