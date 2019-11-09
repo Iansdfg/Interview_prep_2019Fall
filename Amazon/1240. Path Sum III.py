@@ -24,7 +24,6 @@ class Solution:
         
         path.append(root.val)
         for i in range(len(path)):
-            # print(path[i:], sum(path[i:]),  target)
             if sum(path[i:]) == target:
                 self.res += 1
         self.dfs(root.left, target, path)
