@@ -7,15 +7,23 @@ class Solution:
     """
     def optimalUtilization(self, A, B, K):
         # write your code here
-        res = []
-        max_sum = float('-inf')
-        for pos_a, val_a in enumerate(A):
-            for pos_b, val_b in enumerate(B):
-                if val_a + val_b <= K:
+        if not A or not B or len(A) == 0 or len(B) == 0:
+            return []
             
-                    summ = val_a + val_b
-                    if summ > max_sum:
-                        res = [pos_a, pos_b]
-                    max_sum = max(summ, max_sum)
-
+        a, b = 0, len(B) - 1 
+        res = [-1, -1]
+        curr_sum = 0
+        while a<len(A) and b>=0:
+            while b>=0 and A[a] + B[b]>K:
+                if b == 0:
+                    break
+                b -= 1
+            while b-1 >= 0 and B[b] == B[b-1]:
+                b -= 1
+                
+            if A[a] + B[b] <= K:
+                if A[a] + B[b] > curr_sum:
+                    curr_sum = A[a] + B[b]
+                    res = [a, b]
+            a += 1 
         return res
