@@ -37,3 +37,45 @@ class Solution:
             
         return dummy.next
 
+"""
+Definition for singly-linked list with a random pointer.
+class RandomListNode:
+    def __init__(self, x):
+        self.label = x
+        self.next = None
+        self.random = None
+"""
+
+
+class Solution:
+    # @param head: A RandomListNode
+    # @return: A RandomListNode
+    def copyRandomList(self, head):
+        # write your code here
+        if not head:return head
+        
+        curr = head
+        while curr:
+            new_node = RandomListNode(curr.label)
+            nextt = curr.next
+            curr.next = new_node
+            new_node.next = nextt
+            
+            curr = nextt
+            
+        curr = head    
+        while curr:
+            if curr.random:
+                curr.next.random = curr.random.next
+            curr = curr.next.next
+            
+        curr = head    
+        res = head.next
+        while curr:
+            nextt = curr.next 
+            if curr.next:
+                curr.next = nextt.next
+            curr = nextt
+            
+        return res
+            
