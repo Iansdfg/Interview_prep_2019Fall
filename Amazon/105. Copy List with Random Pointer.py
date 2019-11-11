@@ -52,9 +52,7 @@ class Solution:
     # @return: A RandomListNode
     def copyRandomList(self, head):
         # write your code here
-        if not head:return head
-        
-        curr = head
+        curr = head 
         while curr:
             new_node = RandomListNode(curr.label)
             nextt = curr.next
@@ -63,19 +61,19 @@ class Solution:
             
             curr = nextt
             
-        curr = head    
+        curr = head 
         while curr:
             if curr.random:
                 curr.next.random = curr.random.next
             curr = curr.next.next
             
-        curr = head    
-        res = head.next
+        curr = res = head.next
         while curr:
             nextt = curr.next 
-            if curr.next:
+            if nextt:
                 curr.next = nextt.next
             curr = nextt
             
         return res
+            
             
