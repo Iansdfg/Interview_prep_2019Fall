@@ -33,5 +33,4 @@ class Solution:
         if summ / size > self.max_avg:
             self.max_avg = summ / size 
             self.tar_node = root
-        
         return summ, size
