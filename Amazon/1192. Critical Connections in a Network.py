@@ -2,28 +2,23 @@ from collections import defaultdict
 class Solution:
     def criticalConnections(self, n: int, connections: List[List[int]]) -> List[List[int]]:
         graph = defaultdict(list)
-
         n = len(connections)
-
-        for x,y in connections:
+        for x, y in connections:
             graph[x].append(y)
             graph[y].append(x)
-
-
-        visited=[False]*n
-        disc=[float('inf')]*n
-        low=[float('inf')]*n
+        visited = [0]*n
+        dfn = [float('inf')]*n
+        low = [float('inf')]*n
         parent = [-1]*n
-        time = 0
-
+        count = 0
+        
         result = []
-
+        
         for i in range(n):
-            if visited[i]==False:
-                self.get(i,graph,visited,disc,low,parent,time,result)
-
+            if not visited[i]:
+                self.get(i,graph,visited,dfn,low,parent,count,result)
         return result
-
+    
     def get(self,u,graph,visited,disc,low,parent,time,result):
 
         visited[u]=True
@@ -44,3 +39,8 @@ class Solution:
 
             elif v != parent[u]:
                 low[u]=min(low[u],disc[v])
+                
+        
+        
+        
+        
