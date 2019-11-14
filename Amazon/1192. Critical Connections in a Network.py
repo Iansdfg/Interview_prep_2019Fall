@@ -16,29 +16,33 @@ class Solution:
         
         for i in range(n):
             if not visited[i]:
-                self.get(i,graph,visited,dfn,low,parent,count,result)
+                self.tarjan(i,graph,visited,dfn,low,parent,count,result)
         return result
     
-    def get(self,u,graph,visited,disc,low,parent,time,result):
+    def tarjan(self,curr,graph,visited,dfn,low,parent,count,result):
 
-        visited[u]=True
-        disc[u]=time
-        low[u]=time
-        time += 1
+        visited[curr]=True
+        dfn[curr]=count
+        low[curr]=count
+        count += 1
 
-        for v in graph[u]:
-            if visited[v]!=True:
-                parent[v]=u
+        for child in graph[curr]:
+            if visited[child]!=True:
+                parent[child]=curr
 
-                self.get(v,graph,visited,disc,low,parent,time,result)
+                self.tarjan(child,graph,visited,dfn,low,parent,count,result)
 
-                low[u]=min(low[u],low[v])
+                low[curr]=min(low[curr],low[child])
 
-                if low[v]>disc[u]:
-                    result.append([u,v])
+                if low[child]>dfn[curr]:
+                    result.append([curr,child])
+                    
+                # find critical point
+                # if low[child]>=dfn[curr]:
+                #     result.append(curr)
 
-            elif v != parent[u]:
-                low[u]=min(low[u],disc[v])
+            if child != parent[curr]:
+                low[curr]=min(low[curr],dfn[child])
                 
         
         
