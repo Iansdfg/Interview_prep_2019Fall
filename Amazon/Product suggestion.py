@@ -4,97 +4,78 @@ class TrieNode:
         self.children = dict()
         self.is_word = False
 
+
 class Solution:
     def __init__(self):
-        self.root = TrieNode("")
+        self.root = TrieNode('')
+
 
     def insert(self, word):
-        current_node = self.root
-        val = ""
+        curr_node = self.root
+        val = ''
 
-        for w in word:
-            val += w
-            if w not in current_node.children:
-                current_node.children[w] = TrieNode(val)
+        for char in word:
+            val += char
+            if char not in curr_node.children:
+                curr_node.children[char] = TrieNode(val)
+            curr_node = curr_node.children[char]
+        
+        curr_node.is_word = True
 
-            current_node = current_node.children[w]
+    def search_by_prefix(self, prefix):
+        curr_node = self.root
 
-        current_node.is_word = True
-
-    def search_words_with_prefix(self, prefix):
-        # return all word with prefix
-        current_node = self.root
-
-        for p in prefix:  # O(k)
-            if p not in current_node.children:
+        for char in prefix:
+            if char not in curr_node.children:
                 return []
+            curr_node = curr_node.children[char]
+        words = self.get_word(curr_node)
+        words.sort()
+        return words if len(words) <= 3 else words[:3]
 
-            current_node = current_node.children[p]
-        print(current_node.val)
-        words = self.get_words(current_node)  # O(n.l)
-        words.sort()  # O(n.logn)
-
-        return words if len(words) <= 3 else words[0:3]
-
-    def get_words(self, node):
+    def get_word(self, node):
         stack = [node]
         res = []
-
         while stack:
-            current_node = stack.pop()
+            curr = stack.pop()
 
-            if current_node.is_word:
-                res.append(current_node.val)
-
-            for child in current_node.children.values():
+            if curr.is_word:
+                res.append(curr.val)
+            for child in curr.children.values():
                 stack.append(child)
-
         return res
 
-    # Assume length of query and average length of product name is trivial.
-    # Then T(n) = n^2 * logn
+
     def product_suggestions(self, products, query):
         if len(query) <= 1 or not products:
             return None
 
-        for product in products:  # O(n). n is number of products
-            self.insert(product)  # O(l). l is average length of a product name
+        for product in products:
+            self.insert(product)
 
-        custom_queries = []
+        input_queries = []
 
-        for i in range(2, len(query) + 1):  # O(k). k is length of query
-            custom_queries.append(query[0:i])
+        for i in range(2, len(query)+1):
+            input_queries.append(query[:i])
 
-        res = []
+        results = []
+        for input_query in input_queries:
+            result = self.search_by_prefix(input_query)
+            results.append(result)
 
-        for custom_query in custom_queries:  # O(k)
-            res.append(self.search_words_with_prefix(custom_query))  # O(k + n.l + n.logn)
+        return results
 
-        return res
-
+        
 if __name__ == "__main__":
     test = Solution()
-    products = ["mobile", "mouse", "moneypot", "monitor", "mousepad"]
-    query = "mouse"
-    print(test.product_suggestions(products, query))
-
-# class Test(unittest.TestCase):
-#     def test_trie(self):
-#         trie = Trie()
-#         products = ["mobile", "mouse", "moneypot", "monitor", "mousepad"]
-#         query = "mouse"
-#         expected = [["mobile", "moneypot", "monitor"], ["mouse", "mousepad"], ["mouse", "mousepad"], ["mouse", "mousepad"]]
-#         self.assertEqual(expected, trie.product_suggestions(products, query), "Should return correct list of matched products")
-
-#         trie = Trie()
-#         products = ["ps4", "ps4 slim", "ps4 pro", "xbox", "tissue",
-#                     "standing table", "house", "true love", "tracking device"]
-#         query = "ps4"
-#         expected = [["ps4", "ps4 pro", "ps4 slim"], ["ps4", "ps4 pro", "ps4 slim"]]
-#         self.assertEqual(expected, trie.product_suggestions(products, query), "Should return correct list of matched products")
-#         query = "tru"
-#         expected = [["tracking device", "true love"], ["true love"]]
-#         self.assertEqual(expected, trie.product_suggestions(products, query), "Should return correct list of matched products")
-#         query = "t"
-#         self.assertEqual(None, trie.product_suggestions(products, query),
-#                          "Should return None if query is less than 2 characters")
+    products1 = ["mobile", "mouse", "moneypot", "monitor", "mousepad"]
+    query1 = "mouse"
+    products2 = ["ps4", "ps4 slim", "ps4 pro", "xbox", "tissue",
+                    "standing table", "house", "true love", "tracking device"]
+    query2 = "ps4"
+    query21 = "tru"
+    query22 = "t"
+    print('case1', test.product_suggestions(products1, query1))
+    print('case2',test.product_suggestions(products2, query2))
+    print('case3',test.product_suggestions(products2, query21))
+    print('case4',test.product_suggestions(products2, query22))
