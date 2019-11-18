@@ -20,7 +20,4 @@ class Solution:
                     dp[row][col] = 0
                 else:
                     dp[row][col] =  dp[row - 1][col] + dp[row][col - 1]
-        print(dp)
         return dp[-1][-1]
-                
-        
