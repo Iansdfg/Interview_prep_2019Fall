@@ -3,8 +3,7 @@ class TrieNode:
         self.val = val
         self.children = dict()
         self.is_word = False
-
-
+        
 class Solution:
     def __init__(self):
         self.root = TrieNode('')
@@ -45,7 +44,6 @@ class Solution:
                 stack.append(child)
         return res
 
-
     def product_suggestions(self, products, query):
         if len(query) <= 1 or not products:
             return None
@@ -65,7 +63,6 @@ class Solution:
 
         return results
 
-        
 if __name__ == "__main__":
     test = Solution()
     products1 = ["mobile", "mouse", "moneypot", "monitor", "mousepad"]
