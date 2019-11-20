@@ -5,6 +5,7 @@ class Solution:
     """
     def longestValidParentheses(self, s):
         # write your code here
+        # stack store start of first valid position - 1 AKA end of last unvalid position
         stack = [-1]
         max_len = 0
         for i in range(len(s)):
