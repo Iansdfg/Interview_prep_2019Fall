@@ -9,24 +9,23 @@ class Solution:
         if not s or len(s) == 0:
             return 0
             
-        char_to_cnt = dict()
-        left = 0 
-        ans = 1
-        max_count = 0
-        length = len(s)
         
-        for right in range(length):
-            end = s[right]
-            char_to_cnt[end] = char_to_cnt.get(end, 0) + 1
-            most_frequent = max(char_to_cnt[end], most_frequent)
-            print(end, most_frequent)
+        char_to_cnt = dict()
+        left = 0
+        max_frquency = 0
+        ans = 0
+        for right in range(len(s)):
+            char = s[right]
+            char_to_cnt[char] = char_to_cnt.get(char,0)+1
+            max_frquency = max(max_frquency, char_to_cnt[char])
             
-            delta = right - left + 1 - most_frequent
+            delta = right - left + 1 - max_frquency
+            
             if delta > k:
                 char_to_cnt[s[left]] -= 1
                 left += 1
             else:
                 ans = max(ans, right - left + 1)
+                
         return ans
-
             
