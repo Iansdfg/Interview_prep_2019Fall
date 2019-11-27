@@ -18,9 +18,10 @@ class Solution:
         for right in range(length):
             end = s[right]
             char_to_cnt[end] = char_to_cnt.get(end, 0) + 1
-            max_count = max(char_to_cnt[end], max_count)
+            most_frequent = max(char_to_cnt[end], most_frequent)
+            print(end, most_frequent)
             
-            delta = right - left + 1 - max_count
+            delta = right - left + 1 - most_frequent
             if delta > k:
                 char_to_cnt[s[left]] -= 1
                 left += 1
