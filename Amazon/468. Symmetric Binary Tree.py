@@ -44,19 +44,19 @@ class Solution:
         
 
         
-    #     # write your code here
-    #     if not root:
-    #         return True 
-    #     return self.helper(root.left, root.right)
+        # write your code here
+        if not root:
+            return True 
+        return self.helper(root.left, root.right)
         
         
-    # def helper(self, l, r):
-    #     # return true of false, is left node and right node are symmetric
-    #     if not l and not r:
-    #         return True
-    #     if l and r and l.val == r.val:
-    #         return self.helper(l.left, r.right) and self.helper(l.right, r.left)
-    #     return False
+    def helper(self, l, r):
+        # return true of false, is left node and right node are symmetric
+        if not l and not r:
+            return True
+        if l and r and l.val == r.val:
+            return self.helper(l.left, r.right) and self.helper(l.right, r.left)
+        return False
         
         
         
