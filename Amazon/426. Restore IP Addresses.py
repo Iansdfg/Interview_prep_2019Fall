@@ -13,30 +13,26 @@ class Solution:
         if len(path) == 4 and not s:
             result.append('.'.join(path[:]))
             return
-        
         if len(path) == 4 and s:
             return
         
         for i in [1, 2, 3]:
-            if not self.is_valid(s, i):
+            if not self.is_valid(i, s):
                 continue
-
-            ip_num = s[:i]
             
+            ip_num = s[:i]
             path.append(ip_num)
             self.dfs(s[i:], path, result)
             path.pop()
             
-        
-    def is_valid(self, s, i):
+            
+    def is_valid(self, i, s):
         if i > len(s):
-            return False 
-        ip_num = s[:i]
-        if int(ip_num) > 255:
-            return False 
-        if len(ip_num)>1 and ip_num[0] == '0':
             return False
+        ip = s[:i]
+        if int(ip) > 255:
+            return False
+        if len(ip) > 1 and ip[0] == '0':
+            return False 
         return True
-        
-        
-        
+            
