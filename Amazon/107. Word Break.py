@@ -15,10 +15,11 @@ class Solution:
         max_len = max([len(word) for word in dict])
         
         for i in range(1, n+1):
-            for j in range(1, min(i, max_len) + 1):
-                if not dp[i - j]:
+            for j in range(max(i - max_len, 0), i):
+                # print(i, j, s[j:i] ,dp)
+                if not dp[j]:
                     continue
-                if s[i - j:i] in dict:
+                if s[j:i] in dict:
                     dp[i] = 1
                     break
                 
