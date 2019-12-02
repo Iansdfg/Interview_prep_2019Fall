@@ -25,3 +25,6 @@ class Solution:
                 old_to_new[curr].random = old_to_new[curr.random]
             curr = curr.next
         return dummy.next
+    
+    
+    
