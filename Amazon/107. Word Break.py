@@ -14,6 +14,7 @@ class Solution:
         
         max_len = max([len(word) for word in dict])
         
+        
         for i in range(1, n+1):
             # 從i往回走j的長度最多也只可能是i-maxLen -> 不可能有比maxLen更長的dictionary key
             for j in range(max(i - max_len, 0), i):
