@@ -14,9 +14,7 @@ class Solution:
             if len(sub) > len(max_sub):
                 max_sub = sub
         return max_sub
-        
-        
-        
+       
     def find_sub(self, s, left, right):
         while left >= 0 and right < len(s) and s[left] == s[right]:
             left -= 1
