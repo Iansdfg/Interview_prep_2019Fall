@@ -37,6 +37,4 @@ class Solution:
                 return matrix
             dirction = (dirction + 1) % 4 
             
-        
-        
-        
+      
