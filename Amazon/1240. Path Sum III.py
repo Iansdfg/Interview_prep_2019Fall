@@ -29,5 +29,3 @@ class Solution:
         self.dfs(root.left, target, path)
         self.dfs(root.right, target, path)
         path.pop()
-        
-        
