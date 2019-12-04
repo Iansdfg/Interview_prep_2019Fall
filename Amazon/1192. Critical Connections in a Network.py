@@ -31,9 +31,7 @@ class Solution:
                 
                 if low[child] > dfn[curr]:
                     result.append([curr, child])
-                # find critical point
-                # if low[child]>=dfn[curr]:
-                #     result.append(curr)
             if child != parent[curr]:
                 low[curr] = min(low[curr], dfn[child])
                     
+                
