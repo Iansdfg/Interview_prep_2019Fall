@@ -33,6 +33,3 @@ class Solution:
                     
             if parent[curr] != child:
                 low[curr] = min(low[curr], order[child])
-                
-                
-        
