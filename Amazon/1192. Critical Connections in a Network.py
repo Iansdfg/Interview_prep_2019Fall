@@ -16,11 +16,15 @@ class Solution:
             self.targan(node, curr_to_child, visited, order, low, parent, count, result)
         return result
     
+    
+    
     def targan(self, curr, curr_to_child, visited, order, low, parent, count, result):
         visited[curr] = 1
         order[curr] = count
         low[curr] = count
         count += 1
+        
+        
         
         for child in curr_to_child[curr]:
             if not visited[child]:
