@@ -31,7 +31,6 @@ def fav_genra_old(userMap, genreMap):
             
     return result
 
-
 def fav_genra(userMap, genreMap):
     output = {user:[] for user in userMap}
 
@@ -57,10 +56,6 @@ def fav_genra(userMap, genreMap):
         output[user] = [key for key,val in genre_to_cnt.items() if val == max( genre_to_cnt.values() )]
     
     return output
-
-
-
-
 
 
 if __name__ == '__main__':
