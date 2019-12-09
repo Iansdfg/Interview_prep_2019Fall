@@ -14,6 +14,8 @@ class Solution:
         result = []
         for node in range(n):
             self.targan(node, curr_to_child, visited, order, low, parent, count, result)
+            
+        # result.sort(key =lambda x:x[1])
         return result
     
     
@@ -33,7 +35,8 @@ class Solution:
                 low[curr] = min(low[curr], low[child])
                 
                 if order[curr] < low[child]:
-                    result.append([curr, child])
+                    fomer, later = min(node, child), max(node, child)
+                    result.append([fomer, later])
                     
             if parent[curr] != child:
                 low[curr] = min(low[curr], order[child])
