@@ -13,25 +13,22 @@ class Solution:
         count = 1 
         result = []
         for node in range(n):
-            self.targan(node, curr_to_child, visited, order, low, parent, count, result)
+            self.tarjan(node, curr_to_child, visited, order, low, parent, count, result)
             
         # result.sort(key =lambda x:x[1])
         return result
+   
     
-    
-    
-    def targan(self, curr, curr_to_child, visited, order, low, parent, count, result):
+    def tarjan(self, curr, curr_to_child, visited, order, low, parent, count, result):
         visited[curr] = 1
         order[curr] = count
         low[curr] = count
         count += 1
-        
-        
-        
+
         for child in curr_to_child[curr]:
             if not visited[child]:
                 parent[child] = curr
-                self.targan(child, curr_to_child, visited, order, low, parent, count, result)
+                self.tarjan(child, curr_to_child, visited, order, low, parent, count, result)
                 low[curr] = min(low[curr], low[child])
                 
                 if order[curr] < low[child]:
