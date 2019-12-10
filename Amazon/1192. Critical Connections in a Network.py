@@ -1,39 +1,52 @@
+# O(v+e)
+
 from collections import defaultdict
 
-class Solution:
-    def criticalConnections(self, n: int, connections: List[List[int]]) -> List[List[int]]:
-        curr_to_child = defaultdict(list)
-        for x, y in connections:
-            curr_to_child[x].append(y)
-            curr_to_child[y].append(x)    
-        visited = [0]*n
-        order = [-1]*n
-        low = [-1]*n
-        parent = [-1]*n
-        count = 1 
-        result = []
-        for node in range(n):
-            self.tarjan(node, curr_to_child, visited, order, low, parent, count, result)
-            
-        # result.sort(key =lambda x:x[1])
-        return result
-   
-    
-    def tarjan(self, curr, curr_to_child, visited, order, low, parent, count, result):
-        visited[curr] = 1
-        order[curr] = count
-        low[curr] = count
-        count += 1
+def criticalConnection(numOfWarehouses, numOfRoads, roads):
+    # WRITE YOUR CODE HERE
+    node_to_children = defaultdict(list)
+    n = numOfWarehouses+1
+    for x, y in roads:
+        node_to_children[x].append(y)
+        node_to_children[y].append(x)
+    print(node_to_children)
+    visited = [0]*n
+    dfn = [float('inf')]*n
+    low = [float('inf')]*n
+    parent = [-1]*n
+    count = 0 
+    result = []
+    for node in range(n):
+        if not visited[node]:
+            tarjan(node, node_to_children, visited, dfn,
+            low, parent, count, result)
+    return sorted(result)
 
-        for child in curr_to_child[curr]:
-            if not visited[child]:
-                parent[child] = curr
-                self.tarjan(child, curr_to_child, visited, order, low, parent, count, result)
-                low[curr] = min(low[curr], low[child])
-                
-                if order[curr] < low[child]:
-                    fomer, later = min(node, child), max(node, child)
-                    result.append([fomer, later])
-                    
-            if parent[curr] != child:
-                low[curr] = min(low[curr], order[child])
+def tarjan(curr, node_to_children, visited, dfn,
+            low, parent, count, result):
+    visited[curr] = 1
+    dfn[curr] = count
+    low[curr]= count
+    count += 1
+    
+    for child in node_to_children[curr]:
+        print(child)
+        if not visited[child]:
+            parent[child] = curr
+            tarjan(child, node_to_children, visited, dfn,
+                low, parent, count, result)
+            low[curr] = min(low[curr], low[child])
+            
+            if low[child] > dfn[curr]:
+                former, later= min(curr, child), max(curr, child)
+                result.append([former, later])
+        if child != parent[curr]:
+            low[curr] = min(low[curr], dfn[child])
+            
+    
+
+numOfWarehouses = 6
+numOfRoads = 5
+roads = [[1,2], [2,3], [3,4], [4,5], [6,3]]
+res = criticalConnection(numOfWarehouses, numOfRoads, roads )
+print(res)
