@@ -1,3 +1,6 @@
+# Time: O((S + G) + U * (S + G)) => O((U + 1) * (S + G)) => O(U * (S + G))
+# Space: O(S + G)
+
 def fav_genra_old(userMap, genreMap):
     result = { user: [] for user in userMap}
     if not userMap or not genreMap:
@@ -53,6 +56,23 @@ def fav_genra(userMap, genreMap):
     
     return output
 
+# O(U*G)
+import collections
+def favGenres(userMap, genreMap):
+    output = {}
+    for user in userMap:
+        songs = userMap[user]
+        genre_to_count = collections.defaultdict(int)
+        for song in songs:
+            for k,v in genreMap.items():
+                if song in v:
+                    genre_to_count[k]+=1
+
+        print(genre_to_count)
+        output[user]=[key for key,val in genre_to_count.items() if val == max(genre_to_count.values())]
+    return output
+
+
 if __name__ == '__main__':
     # 1
     userMap = {"David": ["song1", "song2", "song3", "song4", "song8"],
@@ -107,5 +127,4 @@ if __name__ == '__main__':
     #     "Pop": [],
     #     "Jazz": []
     # }
-
-    print(fav_genra_old(userMap, genreMap))
+    print(favGenres(userMap, genreMap))
