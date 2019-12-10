@@ -22,7 +22,6 @@ def fav_genra_old(userMap, genreMap):
             max_value = max(genra_to_cnt[genra], max_value)
 
         for genra in genra_to_cnt:
-            # print(genra, genra_to_cnt[genra], max_value)
             if genra_to_cnt[genra] == max_value:
                 result[user].append(genra)
             
@@ -50,17 +49,15 @@ def fav_genra(userMap, genreMap):
             genre = song_to_genre[song]
             genre_to_cnt[genre] = genre_to_cnt.get(genre, 0)+1
 
-        output[user] = [key for key,val in genre_to_cnt.items() if val == max( genre_to_cnt.values() )]
+        output[user] = [key for key,val in genre_to_cnt.items() if val == max(genre_to_cnt.values())]
     
     return output
-
 
 if __name__ == '__main__':
     # 1
     userMap = {"David": ["song1", "song2", "song3", "song4", "song8"],
                "Emma": ["song5", "song6", "song7"]
     }
-
     genreMap = {
         "Rock": ["song1", "song3"],
         "Dubstep": ["song7"],
@@ -92,7 +89,6 @@ if __name__ == '__main__':
     # userMap = {"David": [],
     #            "Emma": []
     # }
-
     # genreMap = {
     #     "Rock": ["song1", "song3"],
     #     "Dubstep": ["song7"],
@@ -104,7 +100,6 @@ if __name__ == '__main__':
     # userMap = {"David": ["song1", "song2", "song3", "song4", "song8"],
     #            "Emma": ["song5", "song6", "song7"]
     # }
-
     # genreMap = {
     #     "Rock": [],
     #     "Dubstep": [],
