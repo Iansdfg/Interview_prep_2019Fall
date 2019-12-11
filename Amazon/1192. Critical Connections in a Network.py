@@ -1,3 +1,4 @@
+# O(e*(v+e))
 from collections import defaultdict
 from collections import deque
 class Solution:
@@ -7,10 +8,7 @@ class Solution:
         for edge in connections:
             new_connections = connections[:]
             new_connections.remove(edge)
-            # print(new_connections)
             graph_list = self.construct_graph(new_connections)
-            # print(graph_list)
-            # print(len(graph_list))
             connected = self.check_connection(graph_list, n)
             if not connected:
                 result.append(edge)
@@ -29,7 +27,6 @@ class Solution:
         # return True or False
         if len(graph_list) != n: 
             return False
-        # BFS to check whether the graph is valid tree.
         visited = set()
         q = deque([0])
         while q:
@@ -39,7 +36,7 @@ class Solution:
                 if node not in visited:
                     visited.add(node)
                     q.append(node)
- 
+
         return len(visited) == n
         
 
@@ -63,12 +60,10 @@ def criticalConnection(numOfWarehouses, numOfRoads, roads):
     result = []
     for node in range(n):
         if not visited[node]:
-            tarjan(node, node_to_children, visited, dfn,
-            low, parent, count, result)
+            tarjan(node, node_to_children, visited, dfn, low, parent, count, result)
     return sorted(result)
 
-def tarjan(curr, node_to_children, visited, dfn,
-            low, parent, count, result):
+def tarjan(curr, node_to_children, visited, dfn, low, parent, count, result):
     visited[curr] = 1
     dfn[curr] = count
     low[curr]= count
@@ -89,9 +84,50 @@ def tarjan(curr, node_to_children, visited, dfn,
             low[curr] = min(low[curr], dfn[child])
             
     
-
 numOfWarehouses = 6
 numOfRoads = 5
 roads = [[1,2], [2,3], [3,4], [4,5], [6,3]]
 res = criticalConnection(numOfWarehouses, numOfRoads, roads )
 print(res)
+
+
+from collections import defaultdict
+
+class Solution:
+    def criticalConnections(self, n: int, connections: List[List[int]]) -> List[List[int]]:
+        node_to_children = defaultdict(list)
+        for x,y in connections:
+            node_to_children[x].append(y)
+            node_to_children[y].append(x)
+        visited = [0]*n
+        order = [0]*n
+        low = [0]*n
+        parent = [-1]*n
+        count = 0
+        result = []
+        
+        for node in range(n):
+            self.targan(node, node_to_children, visited, order, low, parent, 0, result)
+            
+        # result.sort(key =lambda x:x[1])
+        return sorted(result, key =lambda x:x[1])
+        
+        
+    def targan(self, node, node_to_children, visited, order, low, parent, count, result):
+        visited[node] = 1
+        order[node] = count
+        low[node] = count
+        count += 1
+        
+        for child in node_to_children[node]:
+            if not visited[child]:
+                parent[child] = node
+                self.targan(child, node_to_children, visited, order, low, parent, count, result)
+                low[node] = min(low[node], low[child])
+                
+                if order[node]<low[child]:
+                    fomer, later = min(node, child), max(node, child)
+                    result.append([fomer, later])
+                    
+            if parent[node] != child:
+                low[node] = min(low[node], order[child])
