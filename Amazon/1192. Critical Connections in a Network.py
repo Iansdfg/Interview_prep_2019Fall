@@ -1,3 +1,48 @@
+from collections import defaultdict
+from collections import deque
+class Solution:
+    def criticalConnections(self, n, connections):
+        result = []
+        
+        for edge in connections:
+            new_connections = connections[:]
+            new_connections.remove(edge)
+            # print(new_connections)
+            graph_list = self.construct_graph(new_connections)
+            # print(graph_list)
+            # print(len(graph_list))
+            connected = self.check_connection(graph_list, n)
+            if not connected:
+                result.append(edge)
+
+        return result
+        
+    def construct_graph(self, connections):
+#         return adjacent list 
+        node_to_children = defaultdict(list)
+        for x, y in connections:
+            node_to_children[x].append(y)
+            node_to_children[y].append(x)
+        return node_to_children
+    
+    def check_connection(self, graph_list, n):
+        # return True or False
+        if len(graph_list) != n: 
+            return False
+        # BFS to check whether the graph is valid tree.
+        visited = set()
+        q = deque([0])
+        while q:
+            curr = q.popleft()
+            visited.add(curr)
+            for node in graph_list[curr]:
+                if node not in visited:
+                    visited.add(node)
+                    q.append(node)
+ 
+        return len(visited) == n
+        
+
 # O(v+e)
 
 from collections import defaultdict
