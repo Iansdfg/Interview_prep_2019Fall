@@ -1,6 +1,8 @@
+# fill the output you need at least O(U * G) operations. 
+# To process the input user data you need at least O(U * S) operations. 
+# It should therefore be impossible to do better than O(U * (S + G))
 # Time: O((S + G) + U * (S + G)) => O((U + 1) * (S + G)) => O(U * (S + G))
 # Space: O(S + G)
-
 def fav_genra_old(userMap, genreMap):
     result = { user: [] for user in userMap}
     if not userMap or not genreMap:
@@ -29,34 +31,64 @@ def fav_genra_old(userMap, genreMap):
                 result[user].append(genra)
             
     return result
-
+    # userMap = {"David": ["song1", "song2", "song3", "song4", "song8"],
+    #            "Emma": ["song5", "song6", "song7"]
+    # }
+    # genreMap = {
+    #     "Rock": ["song1", "song3"],
+    #     "Dubstep": ["song7"],
+    #     "Techno": ["song2", "song4"],
+    #     "Pop": ["song5", "song6"],
+    #     "Jazz": ["song8", "song9"]
+    # }
 def fav_genra(userMap, genreMap):
     output = {user:[] for user in userMap}
 
-    if userMap == {} or genreMap == {}:
-        return output
-
     song_to_genre = {}
     for genre in genreMap:
-        if genreMap[genre] == []:
-            continue
         for song in genreMap[genre]:
             song_to_genre[song] = genre
 
-    if song_to_genre == {}:
-        return output
-
     for user in userMap:
         genre_to_cnt = {}
-        for song in userMap[user]:
+        songs = userMap[user]
+        for song in songs:
             genre = song_to_genre[song]
             genre_to_cnt[genre] = genre_to_cnt.get(genre, 0)+1
 
-        output[user] = [key for key,val in genre_to_cnt.items() if val == max(genre_to_cnt.values())]
-    
+        for genre in genre_to_cnt:
+            if genre_to_cnt[genre] == max(genre_to_cnt.values()):
+                output[user].append(genre)
     return output
 
-# O(U*G)
+
+
+    # output = {user:[] for user in userMap}
+
+    # if userMap == {} or genreMap == {}:
+    #     return output
+
+    # song_to_genre = {}
+    # for genre in genreMap:
+    #     if genreMap[genre] == []:
+    #         continue
+    #     for song in genreMap[genre]:
+    #         song_to_genre[song] = genre
+
+    # if song_to_genre == {}:
+    #     return output
+
+    # for user in userMap:
+    #     genre_to_cnt = {}
+    #     for song in userMap[user]:
+    #         genre = song_to_genre[song]
+    #         genre_to_cnt[genre] = genre_to_cnt.get(genre, 0)+1
+
+    #     output[user] = [key for key,val in genre_to_cnt.items() if val == max(genre_to_cnt.values())]
+    
+    # return output
+
+# O(U*G*S)
 import collections
 def favGenres(userMap, genreMap):
     output = {}
@@ -71,7 +103,6 @@ def favGenres(userMap, genreMap):
         print(genre_to_count)
         output[user]=[key for key,val in genre_to_count.items() if val == max(genre_to_count.values())]
     return output
-
 
 if __name__ == '__main__':
     # 1
@@ -127,4 +158,4 @@ if __name__ == '__main__':
     #     "Pop": [],
     #     "Jazz": []
     # }
-    print(favGenres(userMap, genreMap))
+    print(fav_genra(userMap, genreMap))
