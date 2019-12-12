@@ -1,34 +1,27 @@
 class Solution:
-    """
-    @param heights: a list of integers
-    @return: a integer
-    """
-    def trapRainWater(self, heights):
-        # write your code here
-        
-        left_max = []
-        curr_max = float('-inf')
-        for height in heights:
-            curr_max = max(curr_max, height)
-            left_max.append(curr_max)
+    def trap(self, height: List[int]) -> int:
+        if height == []:
+            return 0
+        left_max = height[0]
+        left_height = []
+        for val in height:
+            left_max = max(left_max, val)
+            left_height.append(left_max)
             
-        right_max = []
-        curr_max = float('-inf')
-        for height in heights[::-1]:
-            curr_max = max(curr_max, height)
-            right_max.append(curr_max)
-        right_max = right_max[::-1]
-        
-        
+        right_max = height[-1]
+        right_height = []
+        for val in height[::-1]:
+            right_max = max(right_max, val)
+            right_height.append(right_max)
+            
+        right_height = right_height[::-1]
+        # print(left_height, right_height)
         water = 0
-        for pos in range(len(heights)):
-            water += (min(left_max[pos], right_max[pos]) - heights[pos])
-            
+        for i in range(len(height)):
+            water += min(left_height[i],right_height[i])-height[i]
         return water
-    
-    
-    
-    
+        
+
 class Solution:
     """
     @param heights: a list of integers
