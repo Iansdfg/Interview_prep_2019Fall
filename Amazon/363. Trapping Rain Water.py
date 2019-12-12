@@ -1,25 +1,28 @@
+
 class Solution:
     def trap(self, height: List[int]) -> int:
-        if height == []:
+        if not height:
             return 0
-        left_max = height[0]
-        left_height = []
+        left_max = []
+        curr_max = height[0]
         for val in height:
-            left_max = max(left_max, val)
-            left_height.append(left_max)
+            curr_max = max(curr_max, val)
+            left_max.append(curr_max)
             
-        right_max = height[-1]
-        right_height = []
+        right_max = []
+        curr_max = height[-1]
         for val in height[::-1]:
-            right_max = max(right_max, val)
-            right_height.append(right_max)
-            
-        right_height = right_height[::-1]
-        # print(left_height, right_height)
+            curr_max = max(curr_max, val)
+            right_max.append(curr_max)
+        right_max = right_max[::-1]
+        
         water = 0
-        for i in range(len(height)):
-            water += min(left_height[i],right_height[i])-height[i]
+        for pos in range(len(height)):
+            water += (min(right_max[pos], left_max[pos]) - height[pos])
+            
         return water
+            
+        
         
 
 class Solution:
