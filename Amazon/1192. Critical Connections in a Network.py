@@ -2,7 +2,7 @@
 from collections import defaultdict
 from collections import deque
 class Solution:
-    def criticalConnections(self, n, connections):
+    def criticalConnections_brutal(self, n, connections):
         result = []
         
         for edge in connections:
@@ -38,7 +38,48 @@ class Solution:
                     q.append(node)
 
         return len(visited) == n
+
+
+
         
+    def criticalConnections(self, n: int, connections):
+        node_to_children = defaultdict(list)
+        for x,y in connections:
+            node_to_children[x].append(y)
+            node_to_children[y].append(x)
+        visited = [0]*n
+        order = [0]*n
+        low = [0]*n
+        parent = [-1]*n
+        count = 0
+        result = []
+        
+        for node in range(n):
+            if not visited[node]:
+                self.targan(node, node_to_children, visited, order, low, parent, count, result)
+            
+        # result.sort(key =lambda x:x[1])
+        return sorted(result, key =lambda x:x[1])
+        
+        
+    def targan(self, node, node_to_children, visited, order, low, parent, count, result):
+        visited[node] = 1
+        order[node] = count
+        low[node] = count
+        count += 1
+        
+        for child in node_to_children[node]:
+            if not visited[child]:
+                parent[child] = node
+                self.targan(child, node_to_children, visited, order, low, parent, count, result)
+                low[node] = min(low[node], low[child])
+                
+                if order[node]<low[child]:
+                    fomer, later = min(node, child), max(node, child)
+                    result.append([fomer, later])
+                    
+            if parent[node] != child:
+                low[node] = min(low[node], order[child])
 
 # O(v+e)
 
@@ -73,13 +114,13 @@ def tarjan(curr, node_to_children, visited, dfn, low, parent, count, result):
         print(child)
         if not visited[child]:
             parent[child] = curr
-            tarjan(child, node_to_children, visited, dfn,
-                low, parent, count, result)
+            tarjan(child, node_to_children, visited, dfn, low, parent, count, result)
             low[curr] = min(low[curr], low[child])
             
             if low[child] > dfn[curr]:
                 former, later= min(curr, child), max(curr, child)
                 result.append([former, later])
+
         if child != parent[curr]:
             low[curr] = min(low[curr], dfn[child])
             
@@ -91,43 +132,3 @@ res = criticalConnection(numOfWarehouses, numOfRoads, roads )
 print(res)
 
 
-from collections import defaultdict
-
-class Solution:
-    def criticalConnections(self, n: int, connections: List[List[int]]) -> List[List[int]]:
-        node_to_children = defaultdict(list)
-        for x,y in connections:
-            node_to_children[x].append(y)
-            node_to_children[y].append(x)
-        visited = [0]*n
-        order = [0]*n
-        low = [0]*n
-        parent = [-1]*n
-        count = 0
-        result = []
-        
-        for node in range(n):
-            self.targan(node, node_to_children, visited, order, low, parent, 0, result)
-            
-        # result.sort(key =lambda x:x[1])
-        return sorted(result, key =lambda x:x[1])
-        
-        
-    def targan(self, node, node_to_children, visited, order, low, parent, count, result):
-        visited[node] = 1
-        order[node] = count
-        low[node] = count
-        count += 1
-        
-        for child in node_to_children[node]:
-            if not visited[child]:
-                parent[child] = node
-                self.targan(child, node_to_children, visited, order, low, parent, count, result)
-                low[node] = min(low[node], low[child])
-                
-                if order[node]<low[child]:
-                    fomer, later = min(node, child), max(node, child)
-                    result.append([fomer, later])
-                    
-            if parent[node] != child:
-                low[node] = min(low[node], order[child])
