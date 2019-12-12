@@ -51,15 +51,40 @@ def fav_genra(userMap, genreMap):
 
     for user in userMap:
         genre_to_cnt = {}
-        songs = userMap[user]
-        for song in songs:
+        max_val = float('-inf')
+        for song in userMap[user]:
             genre = song_to_genre[song]
-            genre_to_cnt[genre] = genre_to_cnt.get(genre, 0)+1
-
+            if genre in genre_to_cnt:
+                genre_to_cnt[genre] += 1
+            else:
+                genre_to_cnt[genre] = 0
+            max_val = max(genre_to_cnt[genre], max_val)
+        
         for genre in genre_to_cnt:
-            if genre_to_cnt[genre] == max(genre_to_cnt.values()):
+            if genre_to_cnt[genre] == max_val:
                 output[user].append(genre)
     return output
+
+
+
+    # output = {user:[] for user in userMap}
+
+    # song_to_genre = {}
+    # for genre in genreMap:
+    #     for song in genreMap[genre]:
+    #         song_to_genre[song] = genre
+
+    # for user in userMap:
+    #     genre_to_cnt = {}
+    #     songs = userMap[user]
+    #     for song in songs:
+    #         genre = song_to_genre[song]
+    #         genre_to_cnt[genre] = genre_to_cnt.get(genre, 0)+1
+
+    #     for genre in genre_to_cnt:
+    #         if genre_to_cnt[genre] == max(genre_to_cnt.values()):
+    #             output[user].append(genre)
+    # return output
 
 
 
