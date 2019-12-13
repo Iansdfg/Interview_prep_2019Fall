@@ -8,22 +8,22 @@ class Solution:
         # write your code here
         if len(dict) == 0:
             return len(s) == 0
-            
-        n = len(s)
-        dp = [1] + [0] * n
+        
+        length = len(s)
+        dp = [False] * (length+1)
+        dp[0] = True
         
         max_len = max([len(word) for word in dict])
         
         
-        for i in range(1, n+1):
-            # 從i往回走j的長度最多也只可能是i-maxLen -> 不可能有比maxLen更長的dictionary key
-            for j in range(max(i - max_len, 0), i):
-                # print(i, j, s[j:i] ,dp)
-                if not dp[j]:
+        for i in range(1, length+1):
+            for j in range(1, min(i, max_len)+1):
+                if not dp[i-j]:
                     continue
-                if s[j:i] in dict:
-                    dp[i] = 1
-                    break
+                if s[i-j:i] in dict:
+                    dp[i] = True 
+                    break 
                 
-        return bool(dp[-1])
-                    
+        return dp[-1]
+                
+            
