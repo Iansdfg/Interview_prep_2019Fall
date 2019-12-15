@@ -9,8 +9,6 @@ class Solution:
         first = self.find_first(nums, target)
         last = self.find_last(nums, target)
         return [first, last]
-        
-        
     def find_first(self, nums, target):
         start, end = 0, len(nums)-1
         while start + 1 < end:
