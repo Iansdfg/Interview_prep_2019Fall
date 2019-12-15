@@ -15,10 +15,8 @@ class Solution:
         dp[1][1] = 1
         for row in range(rows + 1):
             for col in range(cols + 1):
-                
                 if row == 1 and col == 1:
                     continue
-                    
                 if obstacleGrid[row-1][col-1] == 1:
                     dp[row][col] = 0
                 else:
