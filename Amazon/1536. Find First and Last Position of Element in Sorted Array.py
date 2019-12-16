@@ -42,5 +42,3 @@ class Solution:
             return start
         else:
             return -1
-                
-                
