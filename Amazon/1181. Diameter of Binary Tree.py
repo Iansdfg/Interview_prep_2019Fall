@@ -18,7 +18,6 @@ class Solution:
             
         left = self.find_depth(root.left ) if root.left else 0
         right = self.find_depth(root.right ) if root.right else 0
-        
         return left+right
 
     def find_depth(self, root):
@@ -27,4 +26,4 @@ class Solution:
         
         left, right = self.find_depth(root.left), self.find_depth(root.right)
         return max(left, right)+1
-    
+   
