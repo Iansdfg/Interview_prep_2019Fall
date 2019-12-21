@@ -31,4 +31,3 @@ class Solution:
             if up>down or left>right:
                 return res
             dirction = (dirction+1)%4
-                    
