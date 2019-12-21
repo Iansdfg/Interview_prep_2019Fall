@@ -38,10 +38,7 @@ class Solution:
                     q.append(node)
 
         return len(visited) == n
-
-
-
-        
+    
     def criticalConnections(self, n: int, connections):
         node_to_children = defaultdict(list)
         for x,y in connections:
@@ -129,6 +126,3 @@ numOfWarehouses = 6
 numOfRoads = 5
 roads = [[1,2], [2,3], [3,4], [4,5], [6,3]]
 res = criticalConnection(numOfWarehouses, numOfRoads, roads )
-print(res)
-
-
