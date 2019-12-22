@@ -11,6 +11,7 @@ class Solution:
             return 0
         rows, cols = len(obstacleGrid), len(obstacleGrid[0])
         
+        
         dp = [[0 for _ in range(cols+1)] for _ in range(rows+1)]
         dp[1][1] = 1
         for row in range(rows + 1):
@@ -22,3 +23,5 @@ class Solution:
                 else:
                     dp[row][col] =  dp[row - 1][col] + dp[row][col - 1]
         return dp[-1][-1]
+
+    
