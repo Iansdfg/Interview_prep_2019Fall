@@ -9,10 +9,10 @@ class Solution:
         # write your code here
         if not A or not B or len(A) == 0 or len(B) == 0:
             return []
-            
         a, b = 0, len(B) - 1 
         res = [-1, -1]
         curr_sum = 0
+        
         while a<len(A) and b>=0:
             while b>=0 and A[a] + B[b]>K:
                 if b == 0:
