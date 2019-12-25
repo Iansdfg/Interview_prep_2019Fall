@@ -16,7 +16,6 @@ class Solution:
                 if row == 1 and col == 1:
                     continue
                 dp[row][col] = dp[row-1][col] + dp[row][col-1] 
-                
         return dp[-1][-1]
                 
                 
