@@ -22,8 +22,7 @@ class Solution:
                 if next_word in distance:
                     continue
                 queue.append(next_word)
-                distance[next_word] = distance[word] + 1
-                
+                distance[next_word] = distance[word] + 1     
         return 0
                 
     def get_next_words(self, word, dict):
@@ -34,6 +33,4 @@ class Solution:
                 if new_word in dict and new_word != word:
                     words.append(new_word)
         return words
-                
-                
-        
+               
