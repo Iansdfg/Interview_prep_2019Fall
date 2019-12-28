@@ -2,6 +2,7 @@ userMap = {"David": ["song1", "song2", "song3", "song4", "song8"],
             "Emma": ["song5", "song6", "song7"]
 }
 
+
 genreMap = {
     "Rock": ["song1", "song3"],
     "Dubstep": ["song7"],
@@ -32,7 +33,6 @@ def fav_genre(userMap, genreMap):
     return result
 
 print(fav_genre(userMap, genreMap))
-
 
 
 numOfWarehouses = 6
@@ -76,4 +76,5 @@ def tarjan(node, node_to_children, visited, dfn, low, parent, count, result):
         if parent[node] != child:
             low[node] = min(low[node], dfn[child])
 
+            
 print(criticalConnection(numOfWarehouses, numOfRoads, roads))
