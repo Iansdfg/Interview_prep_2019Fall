@@ -12,7 +12,6 @@ class Solution:
     def insert(self, word):
         curr_node = self.root
         val = ''
-
         for char in word:
             val += char
             if char not in curr_node.children:
@@ -23,7 +22,6 @@ class Solution:
 
     def search_by_prefix(self, prefix):
         curr_node = self.root
-
         for char in prefix:
             if char not in curr_node.children:
                 return []
@@ -50,7 +48,6 @@ class Solution:
 
         for product in products:
             self.insert(product)
-
         input_queries = []
 
         for i in range(2, len(query)+1):
@@ -60,7 +57,6 @@ class Solution:
         for input_query in input_queries:
             result = self.search_by_prefix(input_query)
             results.append(result)
-
         return results
 
 if __name__ == "__main__":
