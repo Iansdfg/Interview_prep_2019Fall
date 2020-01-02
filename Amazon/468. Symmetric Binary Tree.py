@@ -25,14 +25,12 @@ class Solution:
         while stack_A and stack_B:
             a, b = stack_A.pop(), stack_B.pop()
             if a.val != b.val:
-                return False
-                
+                return False     
             if a.left and b.right:
                 stack_A.append(a.left)
                 stack_B.append(b.right)
             elif a.left or b.right:
                 return False 
-                
             if a.right and b.left:
                 stack_A.append(a.right)
                 stack_B.append(b.left)
@@ -40,15 +38,10 @@ class Solution:
                 return False 
         return True
             
-        
-        
-
-        
         # write your code here
         if not root:
             return True 
         return self.helper(root.left, root.right)
-        
         
     def helper(self, l, r):
         # return true of false, is left node and right node are symmetric
@@ -57,6 +50,3 @@ class Solution:
         if l and r and l.val == r.val:
             return self.helper(l.left, r.right) and self.helper(l.right, r.left)
         return False
-        
-        
-        
