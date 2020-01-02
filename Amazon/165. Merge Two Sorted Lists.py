@@ -26,4 +26,3 @@ class Solution:
         if l1 or l2:
             curr.next = l1 or l2
         return dummy.next
-                
