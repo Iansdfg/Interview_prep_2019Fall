@@ -1,27 +1,26 @@
 
 class Solution:
     def trap(self, height: List[int]) -> int:
-        if not height:
+        if len(height) == 0:
             return 0
         left_max = []
         curr_max = height[0]
-        for val in height:
-            curr_max = max(curr_max, val)
+        for h in height:
+            curr_max = max(h, curr_max)
             left_max.append(curr_max)
             
         right_max = []
         curr_max = height[-1]
-        for val in height[::-1]:
-            curr_max = max(curr_max, val)
+        for h in reversed(height):
+            curr_max = max(h, curr_max)
             right_max.append(curr_max)
-        right_max = right_max[::-1]
+        right_max.reverse()
         
         water = 0
         for pos in range(len(height)):
-            water += (min(right_max[pos], left_max[pos]) - height[pos])
-            
+            water += min(left_max[pos], right_max[pos]) - height[pos]
         return water
-            
+        
         
         
 
