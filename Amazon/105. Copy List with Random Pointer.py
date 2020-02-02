@@ -18,7 +18,6 @@ class Solution:
             dummy_curr = dummy_curr.next
             curr = curr.next
             
-        
         curr = head 
         while curr:
             if curr.random:
