@@ -16,11 +16,11 @@ class Solution:
     def reverse(self, head):
         # write your code here
         prev = None
-        curr = head
-        while curr:
-            nextt = curr.next 
-            curr.next = prev
-            prev = curr
-            curr = nextt
+        while head:
+            nextt = head.next
+            head.next = prev
+            prev = head
+            head = nextt
         return prev
+
             
