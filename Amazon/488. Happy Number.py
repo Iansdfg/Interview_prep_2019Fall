@@ -5,21 +5,19 @@ class Solution:
     """
     def isHappy(self, n):
         # write your code here
+        base = n
         visited = set()
-        temp = n
         while True:
-            temp = self.happify(temp)
-            if temp in visited:
-                return False
-            if temp == 1:
+            next_num = 0
+            # print(base, next_num)
+            while base:
+                mod = base % 10
+                next_num += mod ** 2
+                base = base//10
+                
+            if next_num in visited:
+                return False 
+            visited.add(next_num)
+            if next_num == 1:
                 return True
-            visited.add(temp)
-
-        
-    def happify(self, n):
-        summ = 0
-        while n:
-            summ += (n%10)**2
-            n//=10
-        return summ
-        
+            base = next_num
