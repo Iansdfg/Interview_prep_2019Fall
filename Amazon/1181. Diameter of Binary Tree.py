@@ -13,15 +13,26 @@ class Solution:
     """
     def diameterOfBinaryTree(self, root):
         # write your code here
-        if not root:
-            return 0     
-        left = self.find_depth(root.left ) if root.left else 0
-        right = self.find_depth(root.right ) if root.right else 0
-        return left+right
-
-    def find_depth(self, root):
+        max_d = self.helper(root)
+        return max_d
+        
+        
+    def helper(self, root):
+        # return max_d
         if not root:
             return 0
-        left, right = self.find_depth(root.left), self.find_depth(root.right)
-        return max(left, right)+1
-   
+        
+        L_max_d = self.helper(root.left)
+        R_max_d = self.helper(root.right)
+        
+        left_h = self.find_h(root.left)
+        right_h = self.find_h(root.right)
+        max_d = max(L_max_d, R_max_d, left_h + right_h )
+        
+        return max_d
+        
+    def find_h(self, root):
+        if not root:
+            return 0
+        left, right = self.find_h(root.left), self.find_h(root.right)
+        return max(left, right) + 1 
