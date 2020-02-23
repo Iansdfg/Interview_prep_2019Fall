@@ -5,18 +5,25 @@ class Solution:
     """
     def longestPalindrome(self, s):
         # write your code here
+        if len(s) == 1:
+            return s
         max_sub = ''
-        for i in range(len(s)):
-            sub = self.find_sub(s, i, i)
-            if len(sub) > len(max_sub):
-                max_sub = sub
-            sub = self.find_sub(s, i, i+1)
-            if len(sub) > len(max_sub):
-                max_sub = sub
+        
+        for i in range(1, len(s)):
+            palindrome = self.find_palindrome(s, i, i - 1)
+            if len(palindrome) > len(max_sub):
+                max_sub = palindrome
+                
+            palindrome = self.find_palindrome(s, i, i)
+            if len(palindrome) > len(max_sub):
+                max_sub = palindrome
+                
         return max_sub
-       
-    def find_sub(self, s, left, right):
-        while left >= 0 and right < len(s) and s[left] == s[right]:
-            left -= 1
-            right += 1
-        return s[left+1:right]
+            
+            
+    def find_palindrome(self, s, l, r):
+        while l >= 0 and r < len(s) and s[l] == s[r]:
+            l -= 1 
+            r += 1
+        # print(l,r)
+        return s[l+1:r]
