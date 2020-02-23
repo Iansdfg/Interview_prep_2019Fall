@@ -33,3 +33,37 @@ class Solution:
             curr = curr.next
             
         return old_to_new[head]
+"""
+Definition for singly-linked list with a random pointer.
+class RandomListNode:
+    def __init__(self, x):
+        self.label = x
+        self.next = None
+        self.random = None
+"""
+
+
+class Solution:
+    # @param head: A RandomListNode
+    # @return: A RandomListNode
+    def copyRandomList(self, head):
+        # write your code here
+        curr = head
+        while curr:
+            next = curr.next
+            new_node = RandomListNode(curr.label)
+            curr.next = new_node
+            new_node.next = next
+            curr = next
+            
+        curr = head
+        while curr:
+            new = curr.next
+            next = new.next 
+            
+            if curr.random:
+                new.random = curr.random.next
+            if next:
+                new.next  = next.next
+            curr = next
+        return head.next
