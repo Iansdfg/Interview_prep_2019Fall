@@ -5,17 +5,17 @@ class Solution:
     """
     def findAllConcatenatedWordsInADict(self, words):
         # write your code here
-        words.sort(key = lambda x: -len(x))
-        cands = set(words)
-        ans = []
-        for i in range(0, len(words)):
-            cands -= {words[i]}
-            if self.wordBreak(words[i], cands):
+        words.sort(key = lambda x : -len(x))
+        word_set = set(words)
+        res = []
+        for i in range(len(words)):
+            word_set.discard(words[i])
+            if self.wordBreak(words[i], word_set):
                 if words[i] == '':
                     continue
-                ans.append(words[i]) 
-        return ans
-
+                res.append(words[i])
+        return res
+                
     def wordBreak(self, s, dict):
         # write your code here
         dict_set = set(dict)
