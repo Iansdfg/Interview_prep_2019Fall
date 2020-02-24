@@ -1,32 +1,29 @@
 class Solution:
-    """
-    @param words: List[str]
-    @return: return List[str]
-    """
-    def findAllConcatenatedWordsInADict(self, words):
-        # write your code here
-        words.sort(key = lambda x : -len(x))
+    def findAllConcatenatedWordsInADict(self, words: List[str]) -> List[str]:
+        words.sort(key = lambda x:-len(x))
         word_set = set(words)
         res = []
         for i in range(len(words)):
-            word_set.discard(words[i])
-            if self.wordBreak(words[i], word_set):
-                if words[i] == '':
+            target = words[i]
+            word_set.discard(target)
+            # if target can be seperated with other two in word_set:
+            if self.word_break(target, word_set):
+                if target == '':
                     continue
-                res.append(words[i])
+                res.append(target)
         return res
-                
-    def wordBreak(self, s, dict):
-        # write your code here
-        dict_set = set(dict)
-        n = len(s)
-        dp = [0] * (n + 1)
+    
+    def word_break(self, word, words_set):
+        length = len(word)
+        dp = [0]*(length + 1)
         dp[0] = 1 
-        for i in range(n + 1):
-            for j in range(i + 1):
+        
+        for i in range(length + 1):
+            for j in range(i):
                 if not dp[j]:
                     continue
-                if s[j:i] in dict:
-                    dp[i] = 1 
+                if word[j:i] in words_set:
+                    dp[i] = 1
                     break 
-        return bool(dp[-1])
+        return dp[-1]
+        
