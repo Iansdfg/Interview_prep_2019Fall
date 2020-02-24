@@ -1,4 +1,5 @@
 from collections import deque
+
 class Solution:
     """
     @param: start: a string
@@ -10,44 +11,48 @@ class Solution:
         # write your code here
         dict.add(start)
         dict.add(end)
-        distance = {}
-        self.bfs(end, distance, dict)
-        print(distance)
-        result = []
-        self.dfs(start, end, distance, dict, [start], result)
+        word_to_dis = {}
+        self.bfs(end, word_to_dis, dict)
         
+        print(word_to_dis)
+        result = []
+        self.dfs(start, end, dict, word_to_dis, [start], result)
         return result
         
-    def bfs(self, start, distance, dict):
-        distance[start] = 0
+    def bfs(self, start, word_to_dis, dict):
         queue = deque([start])
+        word_to_dis[start] = 0
+        
         while queue:
-            word = queue.popleft()
-            for next_word in self.get_next_word(word, dict):
-                if next_word not in distance:
-                    distance[next_word] = distance[word] + 1
+            curr = queue.popleft()
+            for next_word in self.get_next_words(curr, dict):
+                if next_word not in word_to_dis:
+                    word_to_dis[next_word] = word_to_dis[curr] + 1 
                     queue.append(next_word)
                     
-    def get_next_word(self, word, dict):
-        words = []
+    def get_next_words(self, word, dict):
+        result = []
         for i in range(len(word)):
             for char in 'abcdefghijklmnopqrstuvwxyz':
-                next_word = word[:i]+char+word[i+1:]
-                if next_word != word and next_word in dict:
-                    words.append(next_word)
-        return words
-                
-                
-    def dfs(self, curt, target, distance, dict, path, result):
-        if curt == target:
+                new_word = word[:i] + char + word[i+1:]
+                if new_word != word and new_word in dict:
+                    result.append(new_word)
+        return result
+        
+    def dfs(self, curr, target, dict, word_to_dis, path, result):
+        if curr == target:
             result.append(path[:])
             return
         
-        for word in self.get_next_word(curt, dict):
-            if distance[word] != distance[curt] - 1:
+        for next_word in self.get_next_words(curr, dict):
+            if word_to_dis[next_word] != word_to_dis[curr] - 1:
                 continue
-            path.append(word)
-            self.dfs(word, target, distance, dict, path, result)
+            path.append(next_word)
+            self.dfs(next_word, target, dict, word_to_dis, path, result)
             path.pop()
         
-   
+        
+        
+        
+        
+        
