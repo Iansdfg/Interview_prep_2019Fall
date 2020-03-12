@@ -1,8 +1,6 @@
 # Write your MySQL query statement below
-SELECT mian.Name AS Employee
-FROM Employee AS mian 
-LEFT JOIN Employee AS sub
-ON mian.ManagerId = sub.Id
-WHERE mian.Salary > sub.Salary
-
-
+SELECT Employee.Name AS Employee
+FROM Employee
+LEFT JOIN Employee AS Boss
+ON Employee.ManagerId = Boss.Id
+WHERE Employee.Salary > Boss.Salary
