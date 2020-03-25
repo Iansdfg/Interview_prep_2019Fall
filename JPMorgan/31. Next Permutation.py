@@ -3,25 +3,27 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        # from right to left find the first i that num[i] > num[i-1]
-        i = len(nums) - 1
-        while i > 0 and nums[i] <= nums[i-1]:
-            i -= 1 
-            
-        # from right to left find the first j that num[j] > num[i-1]
-        if i != 0:
-            j = len(nums) - 1 
-            while j > 0 and nums[j] <= nums[i-1]:
-                j -= 1
-            nums[j],  nums[i-1] =  nums[i-1], nums[j] 
-        self.swapList(nums, i, len(nums) - 1)
+        n = len(nums) - 1
+        top = n
+        while top > 0 and nums[top] <= nums[top - 1]:
+                top -= 1
+        low = top - 1
+                
+        if top != 0:
+            between = n
+            while top > 0 and nums[between] <= nums[low]:
+                between -= 1
+            nums[between], nums[top - 1] = nums[low], nums[between]
         
-    def swapList(self, nums, left, right):
+        self.reverse(nums, top, n)
+        
+    def reverse(self, nums, left, right):
         while left < right:
-            nums[left],  nums[right] =  nums[right], nums[left]
-            left += 1 
+            nums[left], nums[right] = nums[right], nums[left]
+            left += 1
             right -= 1
         
         
         
+            
         
