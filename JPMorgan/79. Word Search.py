@@ -5,23 +5,44 @@ class Solution(object):
         :type word: str
         :rtype: bool
         """
-        if not board or not board[0]: return False
-        n, m = len(board[0]), len(board)
-        visited = [[0 for i in range(n)]for i in range(m)]
-        for i in range(m):
-            for j in range(n):
-                if self.search(board, word, 0, i, j, visited): return True
+        rows, cols = len(board), len(board[0])
+        visited = [[0 for _ in range(cols)] for _ in range(rows)]
+        for row in range(rows):
+            for col in range(cols):
+                if self.dfs(board, word, 0, row, col, visited):
+                    return True 
         return False
-
-    def search(self, board, word, depth, i, j, visited):
-        if len(word) == depth:
-            return True
-        n, m = len(board[0]), len(board)
-        if i < 0 or j < 0 or i >= m or j >= n or visited[i][j] or board[i][j] != word[depth]: return False
-        visited[i][j] = 1
-        res = self.search(board, word, depth + 1, i+1, j, visited) or \
-              self.search(board, word, depth + 1, i-1, j, visited)or \
-              self.search(board, word, depth + 1, i, j+1, visited)or \
-              self.search(board, word, depth + 1, i, j-1, visited)
-        visited[i][j] = 0
-        return res
+        
+    def dfs(self, board, word, index, x, y, visited):
+        # return existx
+        if index >= len(word):
+            return True 
+        
+        if not self.is_valid(board, word, index, x, y, visited):
+            return False 
+        
+        visited[x][y] = 1
+        res = self.dfs(board, word, index + 1, x + 1, y, visited) or\
+              self.dfs(board, word, index + 1, x, y + 1, visited) or\
+              self.dfs(board, word, index + 1, x - 1, y, visited) or\
+              self.dfs(board, word, index + 1, x, y - 1, visited) 
+        visited[x][y] = 0
+        
+        return res 
+    
+    def is_valid(self, board, word, index, x, y, visited):
+        rows, cols = len(board), len(board[0])
+        if x < 0 or x >= rows:
+            return False 
+        if y < 0 or y >= cols:
+            return False 
+        if visited[x][y]:
+            return False 
+        if board[x][y] != word[index]:
+            return False 
+        return True 
+        
+        
+        
+        
+        
