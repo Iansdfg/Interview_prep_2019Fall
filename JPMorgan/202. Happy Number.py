@@ -4,23 +4,18 @@ class Solution(object):
         :type n: int
         :rtype: bool
         """
-        new = 0 
-        visited = set()
+        visited = set([n])
         while n != 1:
-            if n in visited:
-                return False
-            visited.add(n)
             new = self.get_new(n)
-            if new == 1:
-                return True
+            if new in visited:
+                return False
+            visited.add(new)
             n = new 
+        return True
             
-    def get_new(self, num):
+    def get_new(self, n):
         res = 0
-        while num:
-            res += (num % 10)**2
-            num //= 10
+        while n:
+            res += (n % 10)**2
+            n //= 10
         return res
-        
-        
-            
