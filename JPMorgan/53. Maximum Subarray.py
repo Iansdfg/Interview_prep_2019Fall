@@ -45,15 +45,15 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        curr_max = [0]*len(nums)
-        max_seen = [0]*len(nums)
-        max_val = float('-inf')
+        n = len(nums)
+        local_max = [0] * n
+        global_max = [0] * n
+        all_max = nums[0]
         for pos, num in enumerate(nums):
-            curr = num if pos == 0 else max(num, num + curr_max[pos - 1])
-            curr_max[pos] = curr
+            curr_max = nums[pos] if pos == 0 else max(num, local_max[pos - 1] + num)
+            local_max[pos] = curr_max
             
-            max_val = max(curr, max_val)
-            max_seen[pos] = max_val
-            
-        return max_seen[-1]
+            all_max = max(curr_max, all_max)
+            global_max[pos] = all_max
+        return global_max[-1]
         
