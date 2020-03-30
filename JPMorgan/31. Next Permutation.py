@@ -3,25 +3,28 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        n = len(nums) - 1
-        top = n
-        while top > 0 and nums[top] <= nums[top - 1]:
-                top -= 1
-        low = top - 1
-                
-        if top != 0:
-            between = n
-            while top > 0 and nums[between] <= nums[low]:
-                between -= 1
-            nums[between], nums[top - 1] = nums[low], nums[between]
+        peak  = len(nums) - 1
+        while peak > 0 and nums[peak] <= nums[peak-1]:
+            peak -= 1 
+        # print(nums[peak])
+        low = peak - 1 
         
-        self.reverse(nums, top, n)
+        if peak != 0:
+            betwenn = len(nums) - 1
+            while betwenn > 0 and nums[betwenn] <= nums[peak-1]:
+                betwenn -= 1 
+            # print(nums[betwenn])
+
+            nums[betwenn], nums[low] = nums[low], nums[betwenn]
         
-    def reverse(self, nums, left, right):
+        self.swap(nums, peak, len(nums) - 1)
+        
+    def swap(self, nums, left, right):
         while left < right:
             nums[left], nums[right] = nums[right], nums[left]
             left += 1
             right -= 1
+            
         
         
         
