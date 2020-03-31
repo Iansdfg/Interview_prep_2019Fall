@@ -30,6 +30,7 @@ class Solution(object):
         
         return res 
     
+    
     def is_valid(self, board, word, index, x, y, visited):
         rows, cols = len(board), len(board[0])
         if x < 0 or x >= rows:
@@ -42,7 +43,5 @@ class Solution(object):
             return False 
         return True 
         
-        
-        
-        
+
         
