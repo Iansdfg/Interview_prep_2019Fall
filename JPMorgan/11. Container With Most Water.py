@@ -9,8 +9,10 @@ class Solution(object):
         while left < right:
             val = (right - left) * min(height[left], height[right])
             res = max(val, res)
+            
             if height[left] < height[right]:
                 left += 1 
             else:
                 right -= 1
+                
         return res
