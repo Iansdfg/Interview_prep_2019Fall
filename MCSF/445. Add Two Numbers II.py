@@ -12,8 +12,7 @@ class Solution:
             nextt = dummy.next
             dummy.next = node
             node.next = nextt
-
-        
+            
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
         dummy = ListNode(-1)
         stack1, stack2 = [], []
