@@ -4,6 +4,7 @@
 #         self.val = x
 #         self.next = None
 
+
 class Solution:
     def insert(self, dummy, node):
         if not dummy.next:
@@ -12,6 +13,7 @@ class Solution:
             nextt = dummy.next
             dummy.next = node
             node.next = nextt
+            
             
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
         dummy = ListNode(-1)
@@ -34,5 +36,6 @@ class Solution:
             new_node = ListNode(val) 
             self.insert(dummy, new_node)
             increment = summ//10
+            
             
         return dummy.next
