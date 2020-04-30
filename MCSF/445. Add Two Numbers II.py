@@ -3,8 +3,6 @@
 #     def __init__(self, x):
 #         self.val = x
 #         self.next = None
-
-
 class Solution:
     def insert(self, dummy, node):
         if not dummy.next:
@@ -35,7 +33,5 @@ class Solution:
             val = summ % 10
             new_node = ListNode(val) 
             self.insert(dummy, new_node)
-            increment = summ//10
-            
-            
+            increment = summ//10       
         return dummy.next
